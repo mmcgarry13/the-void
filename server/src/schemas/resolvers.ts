@@ -1,0 +1,1 @@
+import { Scream } from "../models/Scream";
