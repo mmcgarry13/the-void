@@ -1,21 +1,13 @@
-import dotenv from 'dotenv';
-dotenv.config();
-
 import mongoose from 'mongoose';
 
-//  MONGODB_URI must be defined in .env in server folder
-const MONGODB_URI = process.env.MONGODB_URI || '';
-
-// Initializes the database
-const db = async (): Promise<typeof mongoose.connection> => {
+const connectDB = async (): Promise<void> => {
     try {
-        await mongoose.connect(MONGODB_URI);
-        console.log('Database connected.');
-        return mongoose.connection;
-    } catch (error) {
-        console.error('Database connection error:', error);
-        throw new Error('Database connection failed.');
+        await mongoose.connect('mongodb://localhost:27017/myTextApp');
+        console.log('MongoDB connected');
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
     }
 };
 
-export default db;
+export default connectDB;

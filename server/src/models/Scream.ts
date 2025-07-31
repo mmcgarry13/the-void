@@ -1,33 +1,15 @@
 import { Schema, model, Document } from 'mongoose';
 
-// Define an interface for the Scream document
-interface IScream extends Document {
-    text: string;
+export interface IScream extends Document {
+    content: string;
     createdAt: Date;
-    shareCount: Number;
+    // echoCount: Number;
 }
 
-// Define the schema for the Scream document
-const ScreamSchema = new Schema<IScream>(
-    {
-        text: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-        shareCount: {
-            type: Number,
-            required: true,
-            trim: true,
-        },
-    },
-    {
-        timestamps: true,
-        toJSON: { getters: true },
-        toObject: { getters: true },
-    }
-);
+const ScreamSchema = new Schema<IScream>({
+    content: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+    // echoCount: { type: Number, default: idk yet },
+});
 
-const Scream = model<IScream>('Scream', ScreamSchema);
-
-export default Scream;
+export default model<IScream>('Scream', ScreamSchema);
